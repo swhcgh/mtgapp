@@ -1,0 +1,1 @@
+json.partial! "contenders/contender", contender: @contender

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :contenders
+  resources :pairings
+  resources :decks
   resources :cards
   resources :tournaments
   resources :users

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @contender.user_id %>
+</p>
+
+<p>
+  <strong>Tournament:</strong>
+  <%= @contender.tournament_id %>
+</p>
+
+<p>
+  <strong>Deck:</strong>
+  <%= @contender.deck_id %>
+</p>
+
+<%= link_to 'Edit', edit_contender_path(@contender) %> |
+<%= link_to 'Back', contenders_path %>

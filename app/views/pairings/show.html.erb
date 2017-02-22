@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Contender1:</strong>
+  <%= @pairing.Contender1 %>
+</p>
+
+<p>
+  <strong>Contender2:</strong>
+  <%= @pairing.Contender2 %>
+</p>
+
+<p>
+  <strong>Tournament:</strong>
+  <%= @pairing.tournament_id %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @pairing.Result %>
+</p>
+
+<p>
+  <strong>Roundnumber:</strong>
+  <%= @pairing.RoundNumber %>
+</p>
+
+<%= link_to 'Edit', edit_pairing_path(@pairing) %> |
+<%= link_to 'Back', pairings_path %>

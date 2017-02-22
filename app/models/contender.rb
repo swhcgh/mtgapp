@@ -1,0 +1,2 @@
+class Contender < ApplicationRecord
+end

@@ -1,0 +1,42 @@
+<%= form_for(pairing) do |f| %>
+  <% if pairing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pairing.errors.count, "error") %> prohibited this pairing from being saved:</h2>
+
+      <ul>
+      <% pairing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Contender1 %>
+    <%= f.number_field :Contender1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Contender2 %>
+    <%= f.number_field :Contender2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tournament_id %>
+    <%= f.number_field :tournament_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Result %>
+    <%= f.text_field :Result %>
+  </div>
+
+  <div class="field">
+    <%= f.label :RoundNumber %>
+    <%= f.number_field :RoundNumber %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

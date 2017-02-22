@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Contender1: 1
+  Contender2: 1
+  tournament_id: 1
+  Result: MyString
+  RoundNumber: 1
+
+two:
+  Contender1: 1
+  Contender2: 1
+  tournament_id: 1
+  Result: MyString
+  RoundNumber: 1

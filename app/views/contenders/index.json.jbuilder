@@ -1,0 +1,1 @@
+json.array! @contenders, partial: 'contenders/contender', as: :contender
