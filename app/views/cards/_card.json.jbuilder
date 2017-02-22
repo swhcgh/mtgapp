@@ -1,0 +1,2 @@
+json.extract! card, :id, :Card_Name, :Color, :Cost, :Type, :Subtype_1, :Subtype_2, :Subtype_3, :Rarity, :P, :T, :Loyal, :Rules_Text, :CMC, :created_at, :updated_at
+json.url card_url(card, format: :json)

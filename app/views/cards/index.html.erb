@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Card name</th>
+      <th>Color</th>
+      <th>Cost</th>
+      <th>Type</th>
+      <th>Subtype 1</th>
+      <th>Subtype 2</th>
+      <th>Subtype 3</th>
+      <th>Rarity</th>
+      <th>P</th>
+      <th>T</th>
+      <th>Loyal</th>
+      <th>Rules text</th>
+      <th>Cmc</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td><%= card.Card_Name %></td>
+        <td><%= card.Color %></td>
+        <td><%= card.Cost %></td>
+        <td><%= card.Type %></td>
+        <td><%= card.Subtype_1 %></td>
+        <td><%= card.Subtype_2 %></td>
+        <td><%= card.Subtype_3 %></td>
+        <td><%= card.Rarity %></td>
+        <td><%= card.P %></td>
+        <td><%= card.T %></td>
+        <td><%= card.Loyal %></td>
+        <td><%= card.Rules_Text %></td>
+        <td><%= card.CMC %></td>
+        <td><%= link_to 'Show', card %></td>
+        <td><%= link_to 'Edit', edit_card_path(card) %></td>
+        <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Card', new_card_path %>

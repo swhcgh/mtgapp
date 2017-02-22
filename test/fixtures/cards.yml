@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Card_Name: MyString
+  Color: MyString
+  Cost: MyString
+  Type: MyString
+  Subtype_1: MyString
+  Subtype_2: MyString
+  Subtype_3: MyString
+  Rarity: MyString
+  P: MyString
+  T: MyString
+  Loyal: 1
+  Rules_Text: MyText
+  CMC: 1
+
+two:
+  Card_Name: MyString
+  Color: MyString
+  Cost: MyString
+  Type: MyString
+  Subtype_1: MyString
+  Subtype_2: MyString
+  Subtype_3: MyString
+  Rarity: MyString
+  P: MyString
+  T: MyString
+  Loyal: 1
+  Rules_Text: MyText
+  CMC: 1

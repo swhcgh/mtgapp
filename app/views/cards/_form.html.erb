@@ -1,0 +1,82 @@
+<%= form_for(card) do |f| %>
+  <% if card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+
+      <ul>
+      <% card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Card_Name %>
+    <%= f.text_field :Card_Name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Color %>
+    <%= f.text_field :Color %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Cost %>
+    <%= f.text_field :Cost %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Type %>
+    <%= f.text_field :Type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Subtype_1 %>
+    <%= f.text_field :Subtype_1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Subtype_2 %>
+    <%= f.text_field :Subtype_2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Subtype_3 %>
+    <%= f.text_field :Subtype_3 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Rarity %>
+    <%= f.text_field :Rarity %>
+  </div>
+
+  <div class="field">
+    <%= f.label :P %>
+    <%= f.text_field :P %>
+  </div>
+
+  <div class="field">
+    <%= f.label :T %>
+    <%= f.text_field :T %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Loyal %>
+    <%= f.number_field :Loyal %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Rules_Text %>
+    <%= f.text_area :Rules_Text %>
+  </div>
+
+  <div class="field">
+    <%= f.label :CMC %>
+    <%= f.number_field :CMC %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

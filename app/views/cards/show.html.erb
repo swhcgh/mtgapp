@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Card name:</strong>
+  <%= @card.Card_Name %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @card.Color %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @card.Cost %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @card.Type %>
+</p>
+
+<p>
+  <strong>Subtype 1:</strong>
+  <%= @card.Subtype_1 %>
+</p>
+
+<p>
+  <strong>Subtype 2:</strong>
+  <%= @card.Subtype_2 %>
+</p>
+
+<p>
+  <strong>Subtype 3:</strong>
+  <%= @card.Subtype_3 %>
+</p>
+
+<p>
+  <strong>Rarity:</strong>
+  <%= @card.Rarity %>
+</p>
+
+<p>
+  <strong>P:</strong>
+  <%= @card.P %>
+</p>
+
+<p>
+  <strong>T:</strong>
+  <%= @card.T %>
+</p>
+
+<p>
+  <strong>Loyal:</strong>
+  <%= @card.Loyal %>
+</p>
+
+<p>
+  <strong>Rules text:</strong>
+  <%= @card.Rules_Text %>
+</p>
+
+<p>
+  <strong>Cmc:</strong>
+  <%= @card.CMC %>
+</p>
+
+<%= link_to 'Edit', edit_card_path(@card) %> |
+<%= link_to 'Back', cards_path %>
