@@ -51,6 +51,9 @@ class TournamentsController < ApplicationController
     end
   end
 
+  def begintournament
+  end
+
   # DELETE /tournaments/1
   # DELETE /tournaments/1.json
   def destroy
