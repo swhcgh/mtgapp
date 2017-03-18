@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tournament.Name %>
+</p>
+
+	<%= form_tag("/tournaments/getpairings", :method=>'get', :multipart => true) do %>
+
+		<% (1..8).each do |this| %>
+			<%= "Player " + this.to_s %> <%= select_tag 'players[]', options_from_collection_for_select(User.all, "id", "Name"), :include_blank => true %><br>
+		<% end %>
+		<%= hidden_field_tag :id, @tournament.id %>
+		<%= hidden_field_tag :round, 1 %>
+
+		<%= submit_tag 'Add Players' %>
+	<% end %>
+
+
+<%= link_to 'Back', tournaments_path %>
