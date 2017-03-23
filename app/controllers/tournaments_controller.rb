@@ -61,6 +61,7 @@ class TournamentsController < ApplicationController
 
   def getpairings
     @round = params[:round]
+    
     if @round == '1'
       @players = params[:players]
       @players = @players.shuffle
@@ -89,6 +90,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p1.Contender2 = @c.id
       @p1.tournament_id = @tournament.id
+      @p1.RoundNumber = @round.to_i
       @p1.save!
       puts @p1.inspect
 
@@ -98,6 +100,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p2.Contender2 = @c.id
       @p2.tournament_id = @tournament.id
+      @p2.RoundNumber = @round.to_i
       @p2.save!
       puts @p2.inspect
 
@@ -107,6 +110,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p3.Contender2 = @c.id
       @p3.tournament_id = @tournament.id
+      @p3.RoundNumber = @round.to_i
       puts @p3.inspect
       @p3.save!
 
@@ -116,6 +120,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p4.Contender2 = @c.id
       @p4.tournament_id = @tournament.id
+      @p4.RoundNumber = @round.to_i
       puts @p4.inspect
       @p4.save!
 
@@ -123,26 +128,21 @@ class TournamentsController < ApplicationController
       puts @players
     end
 
-    if @round == '2'
+    if @round == '2' || @round == '3'
 
       @tournament = Tournament.find(params[:id])
-    
+      @contenders = Contender.where('tournament_id = ?',@tournament.id).all.order(points: :desc)
+      puts @contenders.inspect
+
       @playerlist = []
-      @players.each do |a|
-        @playerlist.push(User.find(a))
+      @contenders.each do |a|
+        @playerlist.push(User.find(a.user_id))
       end
+      
+      @contenders = @contenders.to_a
+      @contenders.inspect
 
       puts @playerlist
-
-      @contenders = []
-
-      @playerlist.each do |a|
-        this = Contender.new
-        @contenders.push(this)
-        this.user_id = a.id
-        this.tournament_id = @tournament.id
-        this.save!
-      end
 
       @p1 = Pairing.new
       @c = @contenders.shift
@@ -150,7 +150,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p1.Contender2 = @c.id
       @p1.tournament_id = @tournament.id
-      @p1.RoundNumber = @round
+      @p1.RoundNumber = @round.to_i
       @p1.save!
       puts @p1.inspect
 
@@ -160,7 +160,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p2.Contender2 = @c.id
       @p2.tournament_id = @tournament.id
-      @p2.RoundNumber = @round
+      @p2.RoundNumber = @round.to_i
       @p2.save!
       puts @p2.inspect
 
@@ -170,7 +170,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p3.Contender2 = @c.id
       @p3.tournament_id = @tournament.id
-      @p3.RoundNumber = @round
+      @p3.RoundNumber = @round.to_i
       puts @p3.inspect
       @p3.save!
 
@@ -180,7 +180,7 @@ class TournamentsController < ApplicationController
       @c = @contenders.shift
       @p4.Contender2 = @c.id
       @p4.tournament_id = @tournament.id
-      @p4.RoundNumber = @round
+      @p4.RoundNumber = @round.to_i
       puts @p4.inspect
       @p4.save!
 
@@ -193,8 +193,8 @@ class TournamentsController < ApplicationController
 
   def reportround
 
-    @tournament = params[:id]
-    @players = params[:ids]
+    @tournament = Tournament.find(params[:id])
+    @contids = params[:ids]
     results = params[:results]
 
     @prs = params[:pairings]
@@ -202,7 +202,12 @@ class TournamentsController < ApplicationController
     @prs.each do |a|
       @pairings.push(Pairing.find(a))
     end
-
+    
+    @contenders = []
+    @contids.each do |a|
+      @contenders.push(Contender.find(a))
+    end
+        
     @pairings[0].Result = (results[0].to_s + "-" + results[1].to_s)
     @pairings[0].save!
 
@@ -214,8 +219,25 @@ class TournamentsController < ApplicationController
 
     @pairings[3].Result = (results[6].to_s + "-" + results[7].to_s)
     @pairings[3].save!
+    
+    @pairings.each do |a|
+      @c1 = Contender.find(a.Contender1)
+      @c2 = Contender.find(a.Contender2)
+      if a.Result[0] == '1' && a.Result[2] == '1'
+        @c1.points += 1
+        @c2.points += 1
+      elsif a.Result[0].to_i > a.Result[2].to_i
+        @c1.points += 3
+      elsif a.Result[0].to_i < a.Result[2].to_i
+        @c2.points += 3
+      end
+      @c1.save!
+      @c2.save!
+    end
 
     puts @pairings.inspect
+    
+    @round = @pairings[0].RoundNumber
 
     
 

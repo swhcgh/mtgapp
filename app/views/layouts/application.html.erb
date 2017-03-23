@@ -6,11 +6,23 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'bootstrap' %>
+    <%= stylesheet_link_tag 'bootstrap-responsive' %>
+    
+    <link href='http://fonts.googleapis.com/css?family=Lato|Fjalla+One' rel='stylesheet' type='text/css'>
+    
+
   </head>
 
   <body>
   	<%= render 'bars/top' %>
 
-    <%= yield %>
+    <div class="wrap bg1">
+      <div class="container">
+        <div class="hero-unit">
+        <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

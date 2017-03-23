@@ -14,27 +14,29 @@
 				<th> Pairing </th>
 				<th> Enter result </th>
 			</tr>
-		<% (Pairing.where('tournament_id = ?', @tournament.id).all).each do |this| %>
+		<% (Pairing.where('tournament_id = ? AND RoundNumber = ?', @tournament.id, @round).all).each do |this| %>
 			<%= hidden_field_tag 'pairings[]', this.id %>
 			<tr>
 				<td>Contender 1: <%= User.find(Contender.find(this.Contender1).user_id).Name %></td>
 				<%# @ids.push(this.Contender1.to_s) %>
 
-				<td> <%= text_field_tag 'results[]' %> <%= hidden_field_tag 'ids[]', this.Contender1 %></td>
+				<td> <%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender1 %></td>
 			</tr>
-			<tr><td>VS</td><td></td></tr>
+			<tr><td>VS</td></tr>
 			
 			<tr>
 				<td>Contender 2: <%= User.find(Contender.find(this.Contender2).user_id).Name %></td>
 				<%# @ids.push(this.Contender2.to_s) %>
-				<td> <%= text_field_tag 'results[]' %><%= hidden_field_tag 'ids[]', this.Contender2 %> </td>
+				<td><%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender2 %> </td>
 			</tr>
-			<br><br><br>
+			<tr><td>---------------------------------------</td></tr>
+			
 		<% end %>
 
 		</table>
 		<%#= hidden_field_tag 'ids', @ids %>
 		<%= hidden_field_tag 'id', @tournament.id %>
+		<%= hidden_field_tag 'round', @round %>
 
 		<%= submit_tag 'Report games' %>
 	<% end %>

@@ -8,6 +8,7 @@
       <th>User</th>
       <th>Tournament</th>
       <th>Deck</th>
+      <th>Points</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= contender.user_id %></td>
         <td><%= contender.tournament_id %></td>
         <td><%= contender.deck_id %></td>
+        <td><%= contender.points %></td>
         <td><%= link_to 'Show', contender %></td>
         <td><%= link_to 'Edit', edit_contender_path(contender) %></td>
         <td><%= link_to 'Destroy', contender, method: :delete, data: { confirm: 'Are you sure?' } %></td>
