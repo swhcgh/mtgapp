@@ -11,6 +11,7 @@
   </thead>
 
   <tbody>
+
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.Name %></td>
@@ -25,3 +26,10 @@
 <br>
 
 <%= link_to 'New Tournament', new_tournament_path %>
+<br><br>
+<% cards = MTG::Card.where(set: 'MM3').where(subtypes: 'Beast').all %>
+    <% cards.each do |c| %>
+      <%= link_to ('http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=' + c.multiverse_id.to_s) do %>
+        <%= image_tag c.image_url %>
+          <% end %>    
+    <% end %>
