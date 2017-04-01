@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :pairings
   resources :decks
   resources :cards
+  get 'tournaments/finalresults' => 'tournaments#final'
   get 'tournaments/begintournament' => 'tournaments#begintournament'
   get 'tournaments/getpairings' => 'tournaments#getpairings'
   get 'tournaments/reportround' => 'tournaments#reportround'

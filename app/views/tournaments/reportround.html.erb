@@ -17,5 +17,5 @@
 <% if @round.to_i < 3 %>
   <%= link_to 'Next Round', tournaments_getpairings_url(round: (@round.to_i + 1), id: @tournament.id) %>
 <% else %>
-  <%= link_to 'Final Results', tournaments_final_url(id: @tournament.id) %>
+  <%= link_to 'Final Results', tournaments_finalresults_url(id: @tournament.id) %>
 <% end %>

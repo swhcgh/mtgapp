@@ -3,6 +3,7 @@
 <p>
   <strong>Name:</strong>
   <%= @tournament.Name %>
+  <%= "Round" + @round.to_s %>
 </p>
 
 	<%= form_tag("/tournaments/reportround", :method=>'get', :multipart => true) do %>
@@ -17,7 +18,7 @@
 		<% (Pairing.where('tournament_id = ? AND RoundNumber = ?', @tournament.id, @round).all).each do |this| %>
 			<%= hidden_field_tag 'pairings[]', this.id %>
 			<tr>
-				<td>Contender 1: <%= User.find(Contender.find(this.Contender1).user_id).Name %></td>
+				<td>Contender 1: <%= User.find(Contender.find(this.Contender1).user_id).Name %> (<%= Contender.find(this.Contender1).points %> points)</td>
 				<%# @ids.push(this.Contender1.to_s) %>
 
 				<td> <%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender1 %></td>
@@ -25,7 +26,7 @@
 			<tr><td>VS</td></tr>
 			
 			<tr>
-				<td>Contender 2: <%= User.find(Contender.find(this.Contender2).user_id).Name %></td>
+				<td>Contender 2: <%= User.find(Contender.find(this.Contender2).user_id).Name %> (<%= Contender.find(this.Contender2).points %> points)</td>
 				<%# @ids.push(this.Contender2.to_s) %>
 				<td><%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender2 %> </td>
 			</tr>

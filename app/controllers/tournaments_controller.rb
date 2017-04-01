@@ -242,11 +242,22 @@ class TournamentsController < ApplicationController
     
 
   end
+  
+  def final
+    @tournament = Tournament.find(params[:id])
+    @contenders = Contender.where('tournament_id = ?', @tournament.id).order(points: :desc)
+    if @contenders[0].points == @contenders[1].points
+      @winner = 'top2'
+    else
+      @winner = @contenders[0]
+    end
+  end
 
 
   # DELETE /tournaments/1
   # DELETE /tournaments/1.json
   def destroy
+    @tournament = Tournament.find(params[:id])
     @tournament.destroy
     respond_to do |format|
       format.html { redirect_to tournaments_url, notice: 'Tournament was successfully destroyed.' }

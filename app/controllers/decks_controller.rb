@@ -25,6 +25,12 @@ class DecksController < ApplicationController
   # POST /decks.json
   def create
     @deck = Deck.new(deck_params)
+    @cardlist = params[:Cardlist]
+    @deck.Cardlist = @cardlist
+    @cardcount = params[:Cardcount]
+    @cardcount = @cardcount.reject { |c| c.empty? }
+    @deck.Cardcount = @cardcount
+
 
     respond_to do |format|
       if @deck.save
@@ -40,6 +46,12 @@ class DecksController < ApplicationController
   # PATCH/PUT /decks/1
   # PATCH/PUT /decks/1.json
   def update
+    @cardlist = params[:Cardlist]
+    @deck.Cardlist = @cardlist
+    @cardcount = params[:Cardcount]
+    @cardcount = @cardcount.reject { |c| c.empty? }
+    @deck.Cardcount = @cardcount
+    
     respond_to do |format|
       if @deck.update(deck_params)
         format.html { redirect_to @deck, notice: 'Deck was successfully updated.' }
@@ -69,6 +81,6 @@ class DecksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def deck_params
-      params.require(:deck).permit(:contender_id, :Cardlist)
+      params.require(:deck).permit(:name, Cardlist:[], Cardcount:[] )
     end
 end
