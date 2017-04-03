@@ -11,6 +11,34 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1.json
   def show
     @tournament = Tournament.find(params[:id])
+    @contenders = Contender.where('tournament_id = ?', @tournament.id).order(points: :desc)
+    @cards = Card.all
+  end
+  
+  def cardpopularity
+    
+    @tournament = Tournament.find(params[:id])
+    @contenders = Contender.where('tournament_id = ?', @tournament.id).order(points: :desc)
+    @pairings = Pairing.where('tournament_id = ?', @tournament.id)
+    @cards = Card.all
+    @decks = []
+    @contenders.each do |a|
+      @decks.push(Deck.find(a.deck_id))
+    end
+    
+    @pop = []
+    @count = 0
+    @cards.each do |a|
+      @decks.each do |b|
+        if b.Cardlist.include?(a.id.to_s)
+          @count += 1
+        end
+      end
+      @perc = @count / 8.0
+      @pop.push(@perc)
+      @count = 0
+    end
+ 
   end
 
   # GET /tournaments/new
@@ -64,7 +92,10 @@ class TournamentsController < ApplicationController
     
     if @round == '1'
       @players = params[:players]
-      @players = @players.shuffle
+      @decks = params[:decks]
+      puts @decks.inspect
+      puts @players.inspect
+      
       @tournament = Tournament.find(params[:id])
     
       @playerlist = []
@@ -75,14 +106,17 @@ class TournamentsController < ApplicationController
       puts @playerlist
 
       @contenders = []
-
-      @playerlist.each do |a|
+      
+      (0..7).each do |a|
         this = Contender.new
         @contenders.push(this)
-        this.user_id = a.id
+        this.user_id = @playerlist[a].id
+        this.deck_id = @decks[a].to_i
         this.tournament_id = @tournament.id
         this.save!
       end
+      
+      @contenders.shuffle
 
       @p1 = Pairing.new
       @c = @contenders.shift

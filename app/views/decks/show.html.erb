@@ -1,14 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Contender:</strong>
-  <%= @deck.contender_id %>
-</p>
 
-<p>
-  <strong>Cardlist:</strong>
-  <%= @deck.Cardlist %>
-</p>
+<% @cards.each do |a| %>
+  <% cards = MTG::Card.where(set: 'ORI').where(name: a.Card_Name).all %>
+  <%#= cards.inspect %>
+  <% if !cards.empty? %>
+    <% card = cards[0] %>
+    <%= link_to ('http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=' + card.id.to_s) do %>
+          <%= image_tag card.image_url %>
+            <% end %> 
+  <% end %>
+<% end %>
+<br>
+
+
 
 <%= link_to 'Edit', edit_deck_path(@deck) %> |
 <%= link_to 'Back', decks_path %>

@@ -1,0 +1,8 @@
+<%= "Card Popularity at tournament " + @tournament.Name %><br><br>
+
+<% @cards.each.with_index do |a, i| %>
+  <% if @pop[i] > 0 %>
+    <%= "Card: " %><%= a.Card_Name %>
+    <%= "Popularity: " %><%= number_to_percentage(@pop[i] * 100, precision: 2) %><br>
+  <% end %>
+<% end %>

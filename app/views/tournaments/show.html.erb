@@ -5,6 +5,28 @@
   <%= @tournament.Name %>
 </p>
 
+Results of this Tournament:<br>
+<% if !@contenders.empty? %>
+  <% if @contenders[0].points == @contenders[1].points %>
+    <%= "Tie Win by "%><%= User.find(@contenders[0].user_id).Name %><%= " and " %><%= User.find(@contenders[1].user_id).Name %>
+  <% else %>
+    <%= "Winner: " %><%= User.find(@contenders[0].user_id).Name %>
+  <% end %>
+  <br><br>
+  
+  <% @contenders.each do |this| %>
+    Player: <%= User.find(this.user_id).Name %>
+    Points: <%= this.points %>
+    <br>
+  <% end %>
+  
+  <%= link_to 'Card Popularity', tournaments_cardpopularity_path(id: @tournament.id) %>
+<% else %>
+  Tournament has not run yet!<br>
+<% end %><br><br>
+
+
+
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>
 

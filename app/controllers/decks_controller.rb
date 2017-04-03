@@ -10,6 +10,10 @@ class DecksController < ApplicationController
   # GET /decks/1
   # GET /decks/1.json
   def show
+    @cards = []
+    @deck.Cardlist.each do |a|
+      @cards.push(Card.find(a))
+    end
   end
 
   # GET /decks/new
