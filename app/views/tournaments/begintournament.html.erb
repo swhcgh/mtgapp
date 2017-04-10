@@ -1,23 +1,55 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @tournament.Name %>
-</p>
-
-	<%= form_tag("/tournaments/getpairings", :method=>'get', :multipart => true) do %>
-
-		<% (1..8).each do |this| %>
-			<%= "Player " + this.to_s %>
-			<%= select_tag 'players[]', options_from_collection_for_select(User.all, "id", "Name", User.find(this).id), :include_blank => true %>
-			Deck: 
-			<%= select_tag 'decks[]', options_from_collection_for_select(Deck.all, 'id', 'name'), :include_blank => true %><br>
-		<% end %>
-		<%= hidden_field_tag :id, @tournament.id %>
-		<%= hidden_field_tag :round, 1 %>
-
-		<%= submit_tag 'Add Players' %>
-	<% end %>
+<style>
+	.form-control{
+		width: 20em;
+		margin: 0em 1em;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.breaker {
+		float: none;
+	}
+</style>
 
 
-<%= link_to 'Back', tournaments_path %>
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
+
+				<p id="notice"><%= notice %></p>
+				
+				<h1><%= "Select players for " + @tournament.Name %></h1>
+				
+				<div class="form">
+					<p>
+						<%= form_tag("/tournaments/getpairings", :method=>'get', :multipart => true) do %>
+							<div class="container">
+								<% (1..8).each do |this| %>
+									<div class="row">
+										<div class='form-group left'>
+											<%= "Player " + this.to_s %>
+											<%= select_tag 'players[]', options_from_collection_for_select(User.all, "id", "Name", User.find(this).id), :include_blank => true, class: 'form-control' %>
+										</div>
+										<div class='form-group left'>
+											Deck: 
+											<%= select_tag 'decks[]', options_from_collection_for_select(Deck.all, 'id', 'name'), :include_blank => true, class: 'form-control' %>
+										</div>
+									</div>
+								<% end %>
+								<%= hidden_field_tag :id, @tournament.id %>
+								<%= hidden_field_tag :round, 1 %>
+						
+								<%= submit_tag 'Add Players', class: 'btn btn-default' %>
+							</div>
+						<% end %>
+					</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

@@ -12,6 +12,11 @@ class TournamentsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:id])
     @contenders = Contender.where('tournament_id = ?', @tournament.id).order(points: :desc)
+    if @contenders.empty?
+      redirect_to tournaments_begintournament_path(id: @tournament.id)
+      return
+    end
+    
     @cards = Card.all
   end
   
@@ -58,7 +63,7 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
-        format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
+        format.html { redirect_to @tournament }
         format.json { render :show, status: :created, location: @tournament }
       else
         format.html { render :new }
@@ -302,6 +307,7 @@ class TournamentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tournament
+      @tournament = Tournament.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,36 +1,46 @@
-<%= form_for(deck) do |f| %>
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <table>
-    <tr>
-      <th>In deck?</th>
-      <th>Card Name</th>
-      <th>Card Count</th>
-    </tr>
-    
-    <% Card.all.each do |c| %>
-      <tr>
-        <% if !deck.Cardlist.nil? && deck.Cardlist.include?(c.id.to_s) %>
-          <td><%= check_box_tag 'Cardlist[]', c.id, true %></td>
-        <% else %>
-          <td><%= check_box_tag 'Cardlist[]', c.id %></td>
+        <%= form_for(deck) do |f| %>
+        
+          <div class="field">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+          <table>
+            <tr>
+              <th>In deck?</th>
+              <th>Card Name</th>
+              <th>Card Count</th>
+            </tr>
+            
+            <% Card.all.each do |c| %>
+              <tr>
+                <% if !deck.Cardlist.nil? && deck.Cardlist.include?(c.id.to_s) %>
+                  <td><%= check_box_tag 'Cardlist[]', c.id, true %></td>
+                <% else %>
+                  <td><%= check_box_tag 'Cardlist[]', c.id %></td>
+                <% end %>
+                <td><%= c.Card_Name %></td>
+                <% if !deck.Cardlist.nil? && deck.Cardlist.include?(c.id.to_s) %>
+                  <% @loc = deck.Cardlist.index(c.id.to_s) %>
+                  <% puts @loc %>
+                  <td><%= number_field_tag 'Cardcount[]', deck.Cardcount[@loc].to_s, in: 0..4 %></td>
+                <% else %>
+                  <td><%= number_field_tag 'Cardcount[]', nil, in: 0..4 %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </table>
+        
+          <div class="actions">
+            <%= f.submit %>
+          </div>
         <% end %>
-        <td><%= c.Card_Name %></td>
-        <% if !deck.Cardlist.nil? && deck.Cardlist.include?(c.id.to_s) %>
-          <% @loc = deck.Cardlist.index(c.id.to_s) %>
-          <% puts @loc %>
-          <td><%= number_field_tag 'Cardcount[]', deck.Cardcount[@loc].to_s, in: 0..4 %></td>
-        <% else %>
-          <td><%= number_field_tag 'Cardcount[]', nil, in: 0..4 %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
 
-  <div class="actions">
-    <%= f.submit %>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>

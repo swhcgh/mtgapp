@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mtgapp</title>
+    <title>Magic The Gathering Tournament Organizer</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'bootstrap' %>
+    <%= stylesheet_link_tag 'font-awesome.css' %>
+    <%= stylesheet_link_tag 'prettyPhoto.css' %>
+    <%= stylesheet_link_tag 'style.css' %>
     <%= stylesheet_link_tag 'bootstrap-responsive' %>
+    <%= stylesheet_link_tag 'dark.css' %>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     
     <link href='http://fonts.googleapis.com/css?family=Lato|Fjalla+One' rel='stylesheet' type='text/css'>
     
@@ -17,12 +22,7 @@
   <body>
   	<%= render 'bars/top' %>
 
-    <div class="wrap bg1">
-      <div class="container">
-        <div class="hero-unit">
-        <%= yield %>
-        </div>
-      </div>
-    </div>
+    <%= yield %>
+    
   </body>
 </html>

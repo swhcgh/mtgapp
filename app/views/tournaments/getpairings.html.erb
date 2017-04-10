@@ -1,11 +1,188 @@
+<script type="text/javascript">
+
+$( document ).ready(function() {
+  console.log( "ready!" );
+
+  var screen = $("#screen"); 
+  var total = screen.text();
+  var clrBtn = $("#clr");
+  var delBtn = $("#del");
+  var numBtn = $("button.number"); 
+  var dols = '';
+  var display;
+  var quicktip = $("button.quicktip");
+  var quickchange = $("button.quickchange");
+  var quickexact = $("button.quickexact");
+  
+  quicktip.click(function() {
+    var amount = $(this).val();
+    document.getElementById("amountpaid").setAttribute('value', amount);
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "commit");
+    input.setAttribute("value", "Cash Tip");
+    document.getElementsByName("cashmeout")[0].appendChild(input);
+    document.cashmeout.submit();
+  });
+  quickchange.click(function() {
+    var amount = $(this).val();
+    document.getElementById("amountpaid").setAttribute('value', amount);
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "commit");
+    input.setAttribute("value", "Cash Change");
+    document.getElementsByName("cashmeout")[0].appendChild(input);
+    document.cashmeout.submit();
+  });
+  quickexact.click(function() {
+    var amount = $(this).val();
+    document.getElementById("amountpaid").setAttribute('value', amount);
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "commit");
+    input.setAttribute("value", "Cash Change");
+    document.getElementsByName("cashmeout")[0].appendChild(input);
+    document.cashmeout.submit();
+  });
+  numBtn.click(function() {
+  	var number = $(this).val();
+    updateScreenTotal(number);
+    updateDisplay();
+    console.log('message1');
+  });
+  delBtn.click(function() {
+  	deleteNumber();
+  	updateDisplay();
+    console.log('message2');
+  });
+  clrBtn.click(function() {
+  	clearNumber();
+  	updateDisplay();
+    console.log('message3');
+  });
+  $(document).unbind('keydown').bind('keydown', function (e) {
+    if(e.which == 96) {
+      var number = 0;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 97) {
+      var number = 1;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 98) {
+      var number = 2;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 99) {
+      var number = 3;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 100) {
+      var number = 4;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 101) {
+      var number = 5;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 102) {
+      var number = 6;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 103) {
+      var number = 7;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 104) {
+      var number = 8;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 105) {
+      var number = 9;
+      updateScreenTotal(number);
+      updateDisplay();
+    }
+    if(e.which == 8){
+      deleteNumber();
+      updateDisplay();
+    }
+    if(e.which == 27){
+      clearNumber();
+      updateDisplay();
+    }
+  });
+  
+  function updateScreenTotal(newNumber) {
+    if (dols == '0')
+      dols = '';
+    if (dols.length <= 9)
+  	  dols = dols.concat(newNumber);
+  }
+  function deleteNumber() {
+  	dols = dols.slice(0,-1);
+  }
+  function clearNumber() {
+  	dols = '0';
+  }
+  function updateDisplay() {
+    if (dols == '0' || dols == ''){
+      display = '0.00';
+    }
+    else {
+  	  if (dols.length == 1){
+  	    display = "0.0".concat(dols);
+  	  }
+  	  else if (dols.length == 2){
+  	    display = "0.".concat(dols);
+  	  }
+  	  else {
+  	    display = [dols.slice(0, -2), '.', dols.slice(-2)].join('');
+  	  }
+    }
+  	screen.text(display);
+  	//document.getElementById('amountpaid').value = dols;
+  	document.getElementById("amountpaid").setAttribute('value', dols);
+  }
+});
+
+</script>
+
+<style>
+  .name {
+    font-size: 1em;
+  }
+  .vs {
+    text-align: center;
+  }
+  tr {
+    margin: 1em 0em;
+  }
+</style>
+
+
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @tournament.Name %>
-  <%= "Round" + @round.to_s %>
-</p>
+  <%= "Round " + @round.to_s + " Pairings" %>
+</h1>
 
+<div class="container">
+  <div class="form-group">
 	<%= form_tag("/tournaments/reportround", :method=>'get', :multipart => true) do %>
 
 
@@ -15,22 +192,23 @@
 				<th> Pairing </th>
 				<th> Enter result </th>
 			</tr>
-		<% (Pairing.where('tournament_id = ? AND RoundNumber = ?', @tournament.id, @round).all).each do |this| %>
+		<% (Pairing.where('tournament_id = ? AND RoundNumber = ?', @tournament.id, @round).all).each.with_index do |this, index| %>
 			<%= hidden_field_tag 'pairings[]', this.id %>
 			<tr>
-				<td>Contender 1: <%= User.find(Contender.find(this.Contender1).user_id).Name %> (<%= Contender.find(this.Contender1).points %> points)</td>
+				<td class="name">Contender 1: <%= User.find(Contender.find(this.Contender1).user_id).Name %> (<%= Contender.find(this.Contender1).points %> points)</td>
 				<%# @ids.push(this.Contender1.to_s) %>
 
-				<td> <%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender1 %></td>
+				<td> <%= number_field_tag 'results[]', '0', in: 0..2, class: 'form-control' %><%= hidden_field_tag 'ids[]', this.Contender1 %></td>
 			</tr>
-			<tr><td>VS</td></tr>
+			<tr><td class="vs">VS</td></tr>
 			
 			<tr>
-				<td>Contender 2: <%= User.find(Contender.find(this.Contender2).user_id).Name %> (<%= Contender.find(this.Contender2).points %> points)</td>
+				<td class="name">Contender 2: <%= User.find(Contender.find(this.Contender2).user_id).Name %> (<%= Contender.find(this.Contender2).points %> points)</td>
 				<%# @ids.push(this.Contender2.to_s) %>
-				<td><%= number_field_tag 'results[]', '0', in: 0..2 %><%= hidden_field_tag 'ids[]', this.Contender2 %> </td>
+				<td><%= number_field_tag 'results[]', '0', in: 0..2, class: 'form-control' %><%= hidden_field_tag 'ids[]', this.Contender2 %> </td>
 			</tr>
-			<tr><td>---------------------------------------</td></tr>
+			<tr><td>.</td></tr>
+			<tr><td>.</td></tr>
 			
 		<% end %>
 
@@ -39,8 +217,13 @@
 		<%= hidden_field_tag 'id', @tournament.id %>
 		<%= hidden_field_tag 'round', @round %>
 
-		<%= submit_tag 'Report games' %>
+		<%= submit_tag 'Report games', class: 'btn btn-default' %>
 	<% end %>
+	</div>
+</div>
 
+</div>
+</div>
+</div>
+</div>
 
-<%= link_to 'Back', tournaments_path %>

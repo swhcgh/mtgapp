@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get 'tournaments/reportround' => 'tournaments#reportround'
   resources :tournaments
   resources :users
-  root 'tournaments#index'
+  root 'tournaments#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

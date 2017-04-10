@@ -1,33 +1,46 @@
-<p id="notice"><%= notice %></p>
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-10 pad-top scrollclass">
 
-<p>
-  <strong>Name:</strong>
-  <%= @tournament.Name %>
-</p>
+        <h1><%= @tournament.Name + " Results" %></h1>
 
-Results of this Tournament:<br>
-<% if !@contenders.empty? %>
-  <% if @contenders[0].points == @contenders[1].points %>
-    <%= "Tie Win by "%><%= User.find(@contenders[0].user_id).Name %><%= " and " %><%= User.find(@contenders[1].user_id).Name %>
-  <% else %>
-    <%= "Winner: " %><%= User.find(@contenders[0].user_id).Name %>
-  <% end %>
-  <br><br>
-  
-  <% @contenders.each do |this| %>
-    Player: <%= User.find(this.user_id).Name %>
-    Points: <%= this.points %>
-    <br>
-  <% end %>
-  
-  <%= link_to 'Card Popularity', tournaments_cardpopularity_path(id: @tournament.id) %>
-<% else %>
-  Tournament has not run yet!<br>
-<% end %><br><br>
+        
+        <h2>
+          <% if @contenders[0].points == @contenders[1].points %>
+            <%= "Tie Win by "%><%= User.find(@contenders[0].user_id).Name %><%= " and " %><%= User.find(@contenders[1].user_id).Name %>
+          <% else %>
+            <%= "Winner: " %><%= User.find(@contenders[0].user_id).Name %>
+          <% end %>
+          <br><br>
+        </h2>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Points Earned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @contenders.each do |this| %>
+              <tr>
+                <td><%= User.find(this.user_id).Name %></td>
+                <td><%= this.points %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <p class="home-p">
+        
+        </p>
+        
+        <%= link_to 'Card Popularity', tournaments_cardpopularity_path(id: @tournament.id), class: 'btn btn-default' %>
+
+        <%= link_to 'Delete This Tournament', tournament_path(@tournament), :method => 'delete', class: "btn btn-default" %>
 
 
-
-<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
-<%= link_to 'Back', tournaments_path %>
-
-<%= link_to 'Start Tournament', tournaments_begintournament_path(:id => @tournament.id) %>
+      </div>
+    </div>
+  </div>
+</div>

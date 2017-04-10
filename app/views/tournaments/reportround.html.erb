@@ -1,21 +1,42 @@
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tournament.Name %>
-</p>
-
 <h2>Round <%= @round %> Results</h2>
-
-<% (0..3).each do |this| %>
-  <%= User.find(Contender.find(@pairings[this].Contender1).user_id).Name %> vs
-  <%= User.find(Contender.find(@pairings[this].Contender2).user_id).Name %> :
-  <%= @pairings[this].Result %><br><br>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Pairing</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (0..3).each do |this| %>
   
-<% end %>
+        <tr>
+          <td><%= User.find(Contender.find(@pairings[this].Contender1).user_id).Name %> vs
+          <%= User.find(Contender.find(@pairings[this].Contender2).user_id).Name %> </td>
+          <td><%= @pairings[this].Result %></td>
+        </tr>
+   
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
 
 <% if @round.to_i < 3 %>
-  <%= link_to 'Next Round', tournaments_getpairings_url(round: (@round.to_i + 1), id: @tournament.id) %>
+  <%= link_to 'Next Round', tournaments_getpairings_url(round: (@round.to_i + 1), id: @tournament.id), class: 'btn btn-default' %>
 <% else %>
-  <%= link_to 'Final Results', tournaments_finalresults_url(id: @tournament.id) %>
+  <%= link_to 'Final Results', tournaments_finalresults_url(id: @tournament.id), class: 'btn btn-default' %>
 <% end %>
+
+</div>
+</div>
+</div>
+</div>

@@ -1,6 +1,21 @@
+<style>
+  img {
+    margin: 1em;
+  }
+</style>
+
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
+
 <p id="notice"><%= notice %></p>
 
+<h1>"<%= @deck.name %>" Deck</h1>
 
+<%= link_to 'Edit This Deck', edit_deck_path(@deck), class: 'btn btn-default' %><br><br>
+
+<div class="container">
 <% @cards.each do |a| %>
   <% cards = MTG::Card.where(set: 'ORI').where(name: a.Card_Name).all %>
   <%#= cards.inspect %>
@@ -11,9 +26,12 @@
             <% end %> 
   <% end %>
 <% end %>
+</div>
 <br>
 
 
 
-<%= link_to 'Edit', edit_deck_path(@deck) %> |
-<%= link_to 'Back', decks_path %>
+</div>
+</div>
+</div>
+</div>

@@ -1,8 +1,14 @@
+<div id="home-sec">
+  <div class="overlay dark">
+    <div class="container">
+      <div class="col-md-8 pad-top scrollclass">
+        
 <p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
 
-<table>
+<div class="container">
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -13,15 +19,19 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.Name %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="col-sm-6"><%= user.Name %></td>
+        <td class='col-sm-2'><%= link_to 'Show', user, class: 'btn btn-default' %></td>
+        <td class='col-sm-2'><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-default' %></td>
+        <td class='col-sm-2'><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'New User', new_user_path, class: 'btn btn-default' %>
+<br><br><br>
+
+</div></div></div></div>
